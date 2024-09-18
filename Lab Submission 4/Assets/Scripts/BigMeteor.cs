@@ -2,25 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BigMeteor : MonoBehaviour
+public class BigMeteor : Meteor
 {
     private int hitCount = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Translate(Vector3.down * Time.deltaTime * 0.5f);
-
-        if (transform.position.y < -11f)
-        {
-            Destroy(this.gameObject);
-        }
+        base.Update();
 
         if (hitCount >= 5)
         {

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // Runtime
+    PlayerControls pControls;
+
     public GameObject playerPrefab;
     public GameObject meteorPrefab;
     public GameObject bigMeteorPrefab;
@@ -12,30 +16,42 @@ public class GameManager : MonoBehaviour
 
     public int meteorCount = 0;
 
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        pControls = new PlayerControls();
+
+        pControls.Options.Restart.started += ctx => Restart();
+    }
+
     void Start()
     {
-        Instantiate(playerPrefab, transform.position, Quaternion.identity);
+        GameObject player = Instantiate(playerPrefab, transform.position, Quaternion.identity);
+        GameObject.Find("CameraController").GetComponent<CinemachineVirtualCamera>().Follow = player.transform;
         InvokeRepeating("SpawnMeteor", 1f, 2f);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MeteorCounter()
     {
-        if (gameOver)
-        {
-            CancelInvoke();
-        }
+        meteorCount++;
 
-        if (Input.GetKeyDown(KeyCode.R) && gameOver)
-        {
-            SceneManager.LoadScene("Week5Lab");
-        }
-
-        if (meteorCount == 5)
+        if(meteorCount == 5)
         {
             BigMeteor();
         }
+    }
+
+    public void OnGameOver()
+    {
+        gameOver = true;
+
+        CancelInvoke();
+    }
+
+    void Restart()
+    {
+        if(gameOver)
+            SceneManager.LoadScene("Week5Lab");
     }
 
     void SpawnMeteor()
@@ -47,5 +63,15 @@ public class GameManager : MonoBehaviour
     {
         meteorCount = 0;
         Instantiate(bigMeteorPrefab, new Vector3(Random.Range(-8, 8), 7.5f, 0), Quaternion.identity);
+    }
+
+    private void OnEnable()
+    {
+        pControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        pControls.Disable();
     }
 }

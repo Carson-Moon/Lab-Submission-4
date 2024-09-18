@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float speed;
 
-    // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        transform.Translate(Vector3.down * Time.deltaTime * 2f);
+        transform.Translate(Vector3.down * Time.deltaTime * speed);
 
         if (transform.position.y < -11f)
         {
@@ -26,12 +20,12 @@ public class Meteor : MonoBehaviour
     {
         if (whatIHit.tag == "Player")
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().gameOver = true;
+            GameObject.Find("GameManager").GetComponent<GameManager>().OnGameOver();
             Destroy(whatIHit.gameObject);
             Destroy(this.gameObject);
         } else if (whatIHit.tag == "Laser")
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().meteorCount++;
+            GameObject.Find("GameManager").GetComponent<GameManager>().MeteorCounter();
             Destroy(whatIHit.gameObject);
             Destroy(this.gameObject);
         }
