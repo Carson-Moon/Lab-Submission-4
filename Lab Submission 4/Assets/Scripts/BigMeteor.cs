@@ -12,6 +12,7 @@ public class BigMeteor : Meteor
 
         if (hitCount >= 5)
         {
+            CameraController.instance.ZoomIn();
             Instantiate(deathEffect);
             Destroy(this.gameObject);
         }

@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     {
         meteorCount = 0;
         Instantiate(bigMeteorPrefab, new Vector3(Random.Range(-8, 8), 7.5f, 0), Quaternion.identity);
+        CameraController.instance.ZoomOut();
     }
 
     private void OnEnable()
