@@ -162,3 +162,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
+  deathEffect: {fileID: 6489434794823766988, guid: 538366bc3f7130a43a40c281d5c1ab3c, type: 3}
+  playerDeathEffect: {fileID: 6489434794823766988, guid: e9fab16453b58254c8b2f712831a9ca7, type: 3}

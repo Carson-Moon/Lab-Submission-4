@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    // Runtime
+    AudioSource pSource;
+
     public GameObject laserPrefab;
     private bool canShoot = true;
+    public AudioClip shootSFX;
 
+
+    private void Awake()
+    {
+        pSource = GetComponent<AudioSource>();
+    }
 
     public void Shooting()
     {
@@ -14,6 +23,7 @@ public class PlayerShoot : MonoBehaviour
         {
             Instantiate(laserPrefab, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
             canShoot = false;
+            pSource.PlayOneShot(shootSFX);
             StartCoroutine("Cooldown");
         }
     }

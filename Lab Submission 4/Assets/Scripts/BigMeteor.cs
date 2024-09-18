@@ -12,6 +12,7 @@ public class BigMeteor : Meteor
 
         if (hitCount >= 5)
         {
+            Instantiate(deathEffect);
             Destroy(this.gameObject);
         }
     }
@@ -20,6 +21,7 @@ public class BigMeteor : Meteor
     {
         if (whatIHit.tag == "Player")
         {
+            Instantiate(playerDeathEffect);
             GameObject.Find("GameManager").GetComponent<GameManager>().gameOver = true;
             Destroy(whatIHit.gameObject);
         }
