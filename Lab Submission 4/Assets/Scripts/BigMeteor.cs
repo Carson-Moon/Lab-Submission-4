@@ -15,6 +15,7 @@ public class BigMeteor : Meteor
             CameraController.instance.ZoomIn();
             Instantiate(deathEffect);
             Destroy(this.gameObject);
+            CameraController.instance.BigMeteorExplosion(20f,5f);
         }
     }
 

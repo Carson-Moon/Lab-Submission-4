@@ -15,9 +15,8 @@ public class Meteor : MonoBehaviour
         transform.Translate(Vector3.down * Time.deltaTime * speed);
 
         if (transform.position.y < -11f)
-        {
+        { 
             Destroy(this.gameObject);
-
         }
     }
 
@@ -34,6 +33,8 @@ public class Meteor : MonoBehaviour
         else if (whatIHit.tag == "Laser")
         {
             Instantiate(deathEffect);
+            CameraController.instance.SmallMeteorExplosion(1f,1f);
+            CameraController.instance.BigMeteorExplosion(1f,1f);
             GameObject.Find("GameManager").GetComponent<GameManager>().MeteorCounter();
             Destroy(whatIHit.gameObject);
             Destroy(this.gameObject);
